@@ -1,0 +1,10 @@
+{
+  "name": "L5",
+  "description": "Laravel 5 Site",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.3.0"
+  }
+}
