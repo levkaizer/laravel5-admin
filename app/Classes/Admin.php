@@ -25,5 +25,36 @@ class Admin {
 		return false;
 	}
 	
-	
+	public function hasRoute($route, $key = null) {
+		if(\Configuration::has('admin_routes')) {
+			$routes = \Admin::routes();
+			// limit the search to a particular route group
+			if(isset($key)) {
+				try {
+					$routes = $routes[$key];
+					foreach($routes as $k => $r) {
+						if(array_key_exists($route, $r)) {
+							return true;
+						}
+					}
+				}
+				catch(\ErrorException $e) {
+					// try general execution
+				}
+				
+			}
+			// general execution
+			if(isset($routes)) {
+				foreach($routes as $k => $r) {
+					foreach($r as $key => $foundRoute) {
+						if(array_key_exists($route, $foundRoute)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 }

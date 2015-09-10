@@ -9,6 +9,7 @@ class AdminController extends Controller
 {
     
     public function show() {
+    	\Admin::hasRoute('Admin info');
     	return \Theme::display('home.index', ['user' => \Auth::user(), 'links' => \Admin::routes()]);
     }
     
