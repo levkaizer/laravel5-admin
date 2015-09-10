@@ -14,9 +14,10 @@ class Admin {
 	
 	public function addRoute($route = array(), $key = '') {
 		if(count($route) > 0) {
+			$keys = array_keys($route);
 			$currentRoutes = \Admin::routes();
-			 if(!array_key_exists($key, $currentRoutes)) {
-				$currentRoutes[$key] = $route;
+			 if(!array_key_exists($keys[0], $currentRoutes)) {
+				$currentRoutes[$key][] = $route;
 				\Configuration::set('admin_routes', $currentRoutes);
 				return true;
 			}

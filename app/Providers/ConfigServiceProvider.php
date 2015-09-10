@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Schema\Blueprint;
 
 class ConfigServiceProvider extends ServiceProvider
 {
@@ -13,8 +14,10 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-    	if(!\Configuration::has('app_name')) {
-    		\Configuration::set('app_name', env('APP_NAME'));
+    	if(\Schema::hasTable('config')) {
+    		if(!\Configuration::has('app_name')) {
+    			\Configuration::set('app_name', env('APP_NAME'));
+    		}
     	}
     }
 

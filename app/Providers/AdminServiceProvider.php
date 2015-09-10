@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Schema\Blueprint;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -13,8 +14,10 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-    	if(!\Configuration::has('admin_routes')) {
-    		\Admin::addRoute(['Admin info' => array('link' => route('admin::info'), 'attributes' => array('class' => 'admin-link'))], 'Help');
+    	if(\Schema::hasTable('config')) {
+    		if(!\Configuration::has('admin_routes')) {
+    			\Admin::addRoute(['Admin info' => array('link' => route('admin::info'), 'attributes' => array('class' => 'admin-link'))], 'Help');
+    		}
     	}
     }
 
