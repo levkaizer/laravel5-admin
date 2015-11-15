@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('theme.strap.layouts.master')
 
 <!-- resources/views/auth/register.blade.php -->
 

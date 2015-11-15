@@ -17,10 +17,49 @@ class AdminController extends Controller
     	return \Theme::display('admin.info', array());
     }
     
-    public function showThemes() {
-    	return \Theme::display('admin.themes', ['themes' => \Theme::lists()]);
+    public function saveAdminInfo(Request $request) {
+    	$input = $request->input();
+    	if(isset($input['name'])) {
+    		\Configuration::set('app_name', $input['name']);
+    	}
+    	if(isset($input['debug'])) {
+    		\Configuration::set('debug', $input['debug']);
+    	}
+    	else {
+    		\Configuration::set('debug', 0);
+    	}
+    	return \Redirect::back();
     }
     
-    public function SaveThemes() {
+    public function showThemes() {
+    	return \Theme::display('admin.themes', ['themes' => \Theme::lists(), 'selected' => \Configuration::get('theme')]);
+    }
+    
+    public function saveThemes(Request $request) {
+    	$theme = $request->input('theme');
+    	\Configuration::set('theme', $theme);
+    	return \Redirect::back();
+    }
+    
+    public function frontEndCSS() {
+    	// get the css
+    	$fileData = \Theme::getCSS();
+    	return \Theme::display('admin.css', ['file' => $fileData]);
+    }
+    
+    public function saveFrontEndCSS(Request $request) {
+    	$contents = $request->input('css');
+    	$file = public_path().'/front.css';
+    	$bytes_written = \File::put($file, $contents);
+    	if ($bytes_written === false)
+    	{
+    		die("Error writing to file");
+    	}
+    	return \Redirect::back();
+    }
+    
+    public function flushRoutes() {
+    	\Configuration::delete('admin_routes');
+    	return \Redirect::to('admin');
     }
 }

@@ -5,7 +5,7 @@
 @section('content')
 
 <h2>{{ $user->name }}</h2>
-<form class="form-horizontal" method="POST" action="/profile/edit">
+<form class="form-horizontal" method="POST" action="{{ route('save-user', ['id' => $user->id]) }}">
   {!! csrf_field() !!}
   <div class="form-group {{ ($errors->has('name')) ? 'has-error' : '' }}">
     <label for="name" class="col-sm-2 control-label">Name</label>

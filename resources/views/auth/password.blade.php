@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('theme.strap.layouts.master')
 
 @section('content')
 

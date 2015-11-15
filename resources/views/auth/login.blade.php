@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('theme.strap.layouts.master')
 
 @section('content')
 <!-- 
@@ -13,6 +13,7 @@
 @endif
 -->
 <!-- resources/views/auth/login.blade.php -->
+THEME
 <h2>Please login</h2>
 <form class="form-horizontal" method="POST" action="/login">
   {!! csrf_field() !!}

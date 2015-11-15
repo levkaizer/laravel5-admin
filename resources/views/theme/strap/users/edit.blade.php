@@ -1,18 +1,23 @@
 @extends('theme.strap.layouts.master')
 
-<!-- resources/views/auth/register.blade.php -->
-
 @section('content')
 
-<!-- resources/views/auth/login.blade.php -->
-<h2>Please Register</h2>
-<form class="form-horizontal" method="POST" action="/password/reset">
+<h2>Edit {{ $user->name }}</h2>
+<form class="form-horizontal" method="POST" action="/admin/users/edit/{{{ $user->id }}}">
   {!! csrf_field() !!}
-  <input type="hidden" name="token" value="{{ $token }}">
+  <div class="form-group {{ ($errors->has('name')) ? 'has-error' : '' }}">
+    <label for="name" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="name" id="name" value="{{ (!is_null(old('name'))) ? old('name') : $user->name }}" placeholder="Name" {{ ($errors->has('name')) ? 'aria-describedby="nameHelpBlock"' : '' }}>
+      @if($errors->has('name'))
+      	<span id="nameHelpBlock" class="help-block">{{ $errors->first('name') }}</span>
+      @endif	
+    </div>
+  </div>
   <div class="form-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
     <label for="email" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" placeholder="Email" {{ ($errors->has('email')) ? 'aria-describedby="emailHelpBlock"' : '' }}>
+      <input type="email" class="form-control" name="email" id="email" value="{{ (!is_null(old('email'))) ? old('email') : $user->email }}" placeholder="Email" {{ ($errors->has('email')) ? 'aria-describedby="emailHelpBlock"' : '' }}>
       @if($errors->has('email'))
       	<span id="emailHelpBlock" class="help-block">{{ $errors->first('email') }}</span>
       @endif	
@@ -38,8 +43,10 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">Reset password</button>
+      <button type="submit" class="btn btn-primary">Update</button>
     </div>
   </div>
 </form>
+
+
 @endsection

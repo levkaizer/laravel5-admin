@@ -15,10 +15,12 @@ var elixir = require('laravel-elixir');
 var lessPaths = [
     bowerDir + "bootstrap/less",
     bowerDir + "font-awesome/less"
+    
 ];
 
 elixir(function(mix) {
-    mix.less('app.less', 'public/css', { paths: lessPaths })
+    mix.less(['app.less',
+    	'ring.less'], 'public/css', { paths: lessPaths })
         .scripts([
             'jquery/dist/jquery.min.js',
             'bootstrap/dist/js/bootstrap.min.js'

@@ -13,9 +13,7 @@
 
 Debugbar::enable();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@show');
 
 Route::get('/theme', function(){
     return \Theme::lists();
@@ -59,10 +57,42 @@ Route::get('admin', [
 ]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin::'], function(){
+
+	//Route::controller('users', 'UserController');
+	
+	Route::get('users', [
+    	'middleware' => 'auth',
+    	'as' => 'users',
+	    'uses' => 'UserController@getIndex'
+	]);
+	
+	Route::get('users/edit/{id}', [
+    	'middleware' => 'auth',
+    	'as' => 'edit-user',
+	    'uses' => 'UserController@getEdit'
+	]);
+	
+	Route::post('users/edit/{id}', [
+    	'middleware' => 'auth',
+    	'as' => 'save-user',
+	    'uses' => 'UserController@postEdit'
+	]);
+	
+	Route::post('users/delete/{id}', [
+    	'middleware' => 'auth',
+    	'as' => 'delete-user',
+	    'uses' => 'UserController@postDelete'
+	]);
+	
 	Route::get('info', [
     	'middleware' => 'auth',
     	'as' => 'info',
 	    'uses' => 'AdminController@adminInfo'
+	]);
+	Route::post('saveInfo', [
+    	'middleware' => 'auth',
+    	'as' => 'edit-info',
+	    'uses' => 'AdminController@saveAdminInfo'
 	]);
 	
 	Route::get('themes', [
@@ -70,4 +100,31 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::'], function(){
     	'as' => 'themes',
 	    'uses' => 'AdminController@showThemes'
 	]);
+	Route::post('saveThemes', [
+    	'middleware' => 'auth',
+    	'as' => 'edit-themes',
+	    'uses' => 'AdminController@saveThemes'
+	]);
+	
+	Route::get('css', [
+    	'middleware' => 'auth',
+    	'as' => 'css',
+	    'uses' => 'AdminController@frontEndCSS'
+	]);
+	Route::post('saveFrontEndCSS', [
+    	'middleware' => 'auth',
+    	'as' => 'edit-css',
+	    'uses' => 'AdminController@saveFrontEndCSS'
+	]);
+	
+	// debug
+	if(\Configuration::debug()) {
+		Route::get('flush', [
+			'middleware' => 'auth',
+			'as' => 'flush',
+			'uses' => 'AdminController@flushRoutes'
+		]);
+	}
+	
+	
 });

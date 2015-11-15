@@ -29,4 +29,8 @@ class Config {
 		\App\Config::where('key', $key)->delete();
 	}
 	
+	public function debug() {
+		return $this->get('debug');
+	}
+	
 }

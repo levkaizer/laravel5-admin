@@ -1,6 +1,4 @@
-@extends('layouts.master')
-
-<!-- resources/views/auth/register.blade.php -->
+@extends('theme.strap.layouts.master')
 
 @section('content')
 

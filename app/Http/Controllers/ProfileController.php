@@ -36,17 +36,17 @@ class ProfileController extends Controller
 					$request->user()->password = \Hash::make($request->input('password'));
 				}
 				$request->user()->save();
-				return \Redirect::to('/profile');
+				return \Redirect::to('/profile');				
 			}
         }
     }
     
     public function show() {
-    	return view('profile.index', ['user' => \Auth::user()]);
+    	return \Theme::display('profile.index', ['user' => \Auth::user()]);
     }
     
     public function getEdit() {
-    	return view('profile.edit', ['user' => \Auth::user()]);
+    	return \Theme::display('profile.edit', ['user' => \Auth::user()]);
     }
     
 }

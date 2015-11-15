@@ -17,8 +17,7 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
+    <script src="/js/vendor.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -37,7 +36,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </button>
-		  <a class="navbar-brand" href="{{ Auth::check() ? '/home' : '/' }}">Project name</a>
+		  <a class="navbar-brand" href="{{ Auth::check() ? '/admin' : '/' }}">{{{ \Configuration::get('app_name') }}}</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 		  <ul class="nav navbar-nav">
@@ -65,11 +64,6 @@
     <div class="container">
     	@yield('content')
     </div><!-- /.container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/vendor.js"></script>
+    @include('theme.strap.dialogs.modal') 
   </body>
 </html>
