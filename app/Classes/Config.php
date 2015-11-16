@@ -6,7 +6,7 @@ class Config {
 	
 	public function get($key) {
 		$val = \App\Config::where('key', $key)->pluck('value');
-		//\Debugbar::info($key .' : '. $val);
+		\Debugbar::info($key .' : '. $val);
 		$val = unserialize($val);
 		return $val;
 	}
@@ -31,6 +31,10 @@ class Config {
 	
 	public function debug() {
 		return $this->get('debug');
+	}
+	
+	public function installed() {
+		return $this->get('installed');
 	}
 	
 }

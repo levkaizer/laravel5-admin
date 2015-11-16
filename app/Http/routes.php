@@ -56,6 +56,15 @@ Route::get('admin', [
     'uses' => 'AdminController@show'
 ]);
 
+Route::get('install', [
+    'uses' => 'InstallController@getIndex'
+]);
+
+Route::post('install', [
+    'uses' => 'InstallController@postIndex',
+    'as' => 'install-save'
+]);
+
 Route::group(['prefix' => 'admin', 'as' => 'admin::'], function(){
 
 	//Route::controller('users', 'UserController');
@@ -82,6 +91,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::'], function(){
     	'middleware' => 'auth',
     	'as' => 'delete-user',
 	    'uses' => 'UserController@postDelete'
+	]);
+	
+	Route::post('users/update-password', [
+    	'middleware' => 'auth',
+    	'as' => 'update-password',
+	    'uses' => 'UserController@postUpdate_password'
 	]);
 	
 	Route::get('info', [
