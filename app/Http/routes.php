@@ -47,6 +47,7 @@ Route::group(['as' => 'profle::'], function(){
 	]);
 	Route::post('profile/edit', [
     	'middleware' => 'auth',
+    	'as' => 'save',
 	    'uses' => 'ProfileController@updateProfile'
 	]);
 });
