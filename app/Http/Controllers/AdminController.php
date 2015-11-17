@@ -62,4 +62,5 @@ class AdminController extends Controller
     	\Configuration::delete('admin_routes');
     	return \Redirect::to('admin');
     }
+    
 }

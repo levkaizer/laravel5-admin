@@ -133,6 +133,67 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::'], function(){
 	    'uses' => 'AdminController@saveFrontEndCSS'
 	]);
 	
+	// mailing lists
+	Route::get('lists', [
+    	'middleware' => 'auth',
+    	'as' => 'lists',
+	    'uses' => 'MailListController@getAdminLists'
+	]);
+	
+	Route::get('list-add', [
+    	'middleware' => 'auth',
+    	'as' => 'add-list',
+	    'uses' => 'MailListController@getAdminCreateList'
+	]);
+	
+	Route::post('list-add', [
+    	'middleware' => 'auth',
+    	'as' => 'save-list',
+	    'uses' => 'MailListController@postAdminCreateList'
+	]);
+	
+		Route::get('lists/edit/{id}', [
+    	'middleware' => 'auth',
+    	'as' => 'edit-list',
+	    'uses' => 'MailListController@getAdminEditList'
+	]);
+	
+	Route::post('lists/edit/{id}', [
+    	'middleware' => 'auth',
+    	'as' => 'edit-list-save',
+	    'uses' => 'MailListController@postAdminEditList'
+	]);
+	
+	Route::post('lists/status/{id}', [
+    	'middleware' => 'auth',
+    	'as' => 'delete-list',
+	    'uses' => 'MailListController@postStatus'
+	]);
+	
+	Route::post('lists/delete/{id}', [
+    	'middleware' => 'auth',
+    	'as' => 'delete-list',
+	    'uses' => 'MailListController@postDelete'
+	]);
+	
+	Route::get('lists/{id}/members', [
+    	'middleware' => 'auth',
+    	'as' => 'list-members',
+	    'uses' => 'MailListController@getMembers'
+	]);
+	
+	Route::get('lists/default', [
+    	'middleware' => 'auth',
+    	'as' => 'list-default',
+	    'uses' => 'MailListController@getHomepageList'
+	]);
+	
+	Route::post('lists/default', [
+    	'middleware' => 'auth',
+    	'as' => 'save-default',
+	    'uses' => 'MailListController@postHomepageList'
+	]);
+	
 	// debug
 	if(\Configuration::debug()) {
 		Route::get('flush', [
@@ -144,3 +205,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::'], function(){
 	
 	
 });
+
+Route::post('lists/submit', [
+	'as' => 'save-list-member',
+	'uses' => 'MailListController@submit'
+]);
+
+Route::get('unsubscribe', [
+	'as' => 'unsubscribe',
+	'uses' => 'MailListController@unsubscribe'
+]);

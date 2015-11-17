@@ -22,6 +22,10 @@ class AdminServiceProvider extends ServiceProvider
     				'CSS Editor' => array('link' => route('admin::css'), 'attributes' => array('class' => 'admin-link'))
     				], 'Look & Feel');
     			\Admin::addRoute(['View users' => array('link' => route('admin::users'), 'attributes' => array('class' => 'admin-link'))], 'User Management');
+    			\Admin::addRoute([
+    				'View lists' => array('link' => route('admin::lists'), 'attributes' => array('class' => 'admin-link')),
+    				'Choose default list' => array('link' => route('admin::list-default'), 'attributes' => array('class' => 'admin-link'))
+    				], 'Mailing lists');
     		}
     	}
     }

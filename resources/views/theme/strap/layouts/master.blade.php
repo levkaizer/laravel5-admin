@@ -63,6 +63,10 @@
 		</div><!--/.nav-collapse -->
 	  </div>
 	</nav>
+	
+	@if(isset($message))
+		<div class="alert alert-success" role="alert">{{ $message }}</div>
+	@endif
 
     <div class="container">
     	@yield('content')
