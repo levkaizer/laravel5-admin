@@ -26,7 +26,8 @@ elixir(function(mix) {
             'bootstrap/dist/js/bootstrap.min.js'
             ], 'public/js/vendor.js', bowerDir)
         .copy('resources/assets/js/app.js', 'public/js/app.js')
-        .copy(bowerDir + 'font-awesome/fonts', 'public/fonts');
+        .copy(bowerDir + 'font-awesome/fonts', 'public/fonts')
+        .copy(bowerDir + 'trumbowyg/dist', 'public/trumbowyg');
  
 });
 

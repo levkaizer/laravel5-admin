@@ -63,4 +63,8 @@ class AdminController extends Controller
     	return \Redirect::to('admin');
     }
     
+    public function getToken() {
+    	return response()->json(['ok' => true, 'token' => csrf_token()]); 
+    }
+    
 }

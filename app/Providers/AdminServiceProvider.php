@@ -26,6 +26,10 @@ class AdminServiceProvider extends ServiceProvider
     				'View lists' => array('link' => route('admin::lists'), 'attributes' => array('class' => 'admin-link')),
     				'Choose default list' => array('link' => route('admin::list-default'), 'attributes' => array('class' => 'admin-link'))
     				], 'Mailing lists');
+    			\Admin::addRoute([
+    				'Add content' => array('link' => route('admin::add-content'), 'attributes' => array('class' => 'admin-link')),
+    				'List content' => array('link' => route('admin::list-content'), 'attributes' => array('class' => 'admin-link')),
+    				], 'Content');
     		}
     	}
     }

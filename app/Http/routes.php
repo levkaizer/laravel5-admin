@@ -70,6 +70,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::'], function(){
 
 	//Route::controller('users', 'UserController');
 	
+	Route::get('token', [
+		'middleware' => 'auth',
+		'as' => 'token',
+		'uses' => 'AdminController@getToken'
+	]);
+	
 	Route::get('users', [
     	'middleware' => 'auth',
     	'as' => 'users',
@@ -152,7 +158,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::'], function(){
 	    'uses' => 'MailListController@postAdminCreateList'
 	]);
 	
-		Route::get('lists/edit/{id}', [
+	Route::get('lists/edit/{id}', [
     	'middleware' => 'auth',
     	'as' => 'edit-list',
 	    'uses' => 'MailListController@getAdminEditList'
@@ -194,6 +200,43 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::'], function(){
 	    'uses' => 'MailListController@postHomepageList'
 	]);
 	
+	Route::get('content/add', [
+		'middleware' => 'auth',
+    	'as' => 'add-content',
+	    'uses' => 'ContentController@getAdd'
+	]);
+	
+	Route::post('content/add', [
+    	'middleware' => 'auth',
+    	'as' => 'save-content',
+	    'uses' => 'ContentController@postAdd'
+	]);
+	
+	Route::get('content', [
+		'middleware' => 'auth',
+    	'as' => 'list-content',
+	    'uses' => 'ContentController@show'
+	]);
+	
+	Route::get('content/edit/{id}', [
+    	'middleware' => 'auth',
+    	'as' => 'edit-content',
+	    'uses' => 'ContentController@getEdit'
+	]);
+	
+	Route::post('content/edit/{id}', [
+    	'middleware' => 'auth',
+    	'as' => 'edit-content-save',
+	    'uses' => 'ContentController@postEdit'
+	]);
+	
+	Route::post('content/upload', [
+    	'middleware' => 'auth',
+    	'as' => 'upload',
+	    'uses' => 'ContentController@postUpload'
+	]);
+	
+	
 	// debug
 	if(\Configuration::debug()) {
 		Route::get('flush', [
@@ -215,3 +258,30 @@ Route::get('unsubscribe', [
 	'as' => 'unsubscribe',
 	'uses' => 'MailListController@unsubscribe'
 ]);
+
+Route::get('content/{id}', [
+	'content',
+	'uses' => 'ContentController@getContent'
+]);
+
+// lets try a wildcard...
+Route::any( '{catchall}', function ( $url ) {
+    // at this point we need to look up the url of the page...
+    try {
+    	$alias = \App\UrlAlias::where('path', $url)->firstOrFail();
+    	$content = $alias->content()->first();
+    	if(isset($content)) {
+    		// call the content controller's method here.
+    		$cc = new App\Http\Controllers\ContentController();
+    		return $cc->getContent($content->id);
+    	}
+    	else {
+    		abort('404');
+    	}
+    }
+    catch(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+    	abort('404');
+    }
+    
+    
+} )->where('catchall', '(.*)');

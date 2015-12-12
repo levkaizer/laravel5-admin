@@ -17,13 +17,13 @@
 		</thead>
 		<tbody>
 		@forelse($members as $m)
-			<tr id="list-{{ $m->id }}" {{ (!$l->subscribed) ? ' class=bg-warning ' : '' }}>
-				<td>{{{ $l->first_name }}}</td>
-				<td>{{{ $l->last_name }}}</td>
-				<td><span class="status">{{{ ($l->subscribed) ? 'Yes' : 'No' }}}</span></td>
+			<tr id="list-{{ $m->id }}" {{ (!$m->subscribed) ? ' class=bg-warning ' : '' }}>
+				<td>{{{ $m->first_name }}}</td>
+				<td>{{{ $m->last_name }}}</td>
+				<td>-</td>
+				<td><span class="status">{{{ ($m->subscribed) ? 'Yes' : 'No' }}}</span></td>
 				<td width="31%" class="text-center">
 					<!-- <a class="btn btn-primary btn-edit" data-id="{{ $m->id }}" href="/admin/lists/edit/{{ $m->id }}">Edit</a> -->
-					<!-- <a class="btn btn-info btn-status" data-id="{{ $m->id }}" href="/admin/lists/status/{{ $m->id }}"> {{ ($l->active) ? 'Deactivate' : 'Activate' }}</a> -->
 					<a class="btn btn-danger btn-delete" data-id="{{ $m->id }}" href="/admin/members/delete/{{ $m->id }}">Delete</a>
 				</td>
 			</tr>

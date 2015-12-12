@@ -84,7 +84,7 @@ class MailListController extends Controller
     
     public function getMembers($listId) {
     	$list = MailList::find($listId);
-    	$members = ListMember::where('list_id', $listId)->orderBy('updated_at', 'desc');
+    	$members = ListMember::where('list_id', $listId)->orderBy('updated_at', 'desc')->get();
     	return \Theme::display('lists.admin-list-members', ['members' => $members, 'list' => $list]); 
     }
     
